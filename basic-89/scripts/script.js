@@ -34,8 +34,24 @@ $(function () {
 
 	request.done(function(data) {
 		for (var i = data.length - 1; i >= 0; i--) {
-			$('#names').append("<li>" + data[i].name + "</li>");
+			$('#names').append("<li id='"+data[i].id+"'>" + data[i].name + "</li>");
 		}
+
+		$('#names li').on('click', function(){
+			//console.log(this.id);
+			var infosRequest = $.ajax({
+				url:"https://jsonplaceholder.typicode.com/users",
+				method:"GET",
+				data: {id: this.id},
+				dataType:"json"
+			});
+
+			infosRequest.done(function(dataInfos){
+				//console.log(data[0].username);
+				console.info("Username : " + dataInfos[0].username);
+				console.info("Email : " + dataInfos[0].email);
+			});
+		});
 
 		/*data.forEach(function(x){
 			console.log(x.name);
