@@ -151,3 +151,16 @@ input, textarea, select{font-size:12px; font-family:Georgia,"Times New Roman",Ti
 
 #footer{padding:20px 0;}
 #footer p{margin:0; padding:0;}
+
+
+form {
+	width: 150px;
+	margin: 0 auto;
+}
+
+input, select {
+	display: block;
+	margin-top: 20px;
+	width: 100%;
+	line-height: 20px;
+}
