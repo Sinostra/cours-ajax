@@ -1,5 +1,10 @@
 $(function () {
 
+	//console.log($("strong").eq(0).text("hi"));
+
+	var amountOfPostsToDisplay = 4;
+	var charsPerPostToDisplay = 100;
+
 	var changeFrequency = 3000;
 
 	var imagesToDisplay = [
@@ -12,7 +17,7 @@ $(function () {
 
 	//console.log(imagesToDisplay[0]);
 
-	setInterval(function(){
+	/*setInterval(function(){
 
 
 		if(imagesToDisplay.length == 0) return;
@@ -24,7 +29,7 @@ $(function () {
 		usedImageIndex++;
 
 
-	}, changeFrequency);
+	}, changeFrequency);*/
 
 	var request = $.ajax({
 		url:"https://jsonplaceholder.typicode.com/users",
@@ -56,5 +61,92 @@ $(function () {
 		/*data.forEach(function(x){
 			console.log(x.name);
 		});*/
+	});
+
+	var postRequest = $.ajax({
+		url: "https://jsonplaceholder.typicode.com/posts",
+		method: "GET"
+	});
+
+	postRequest.done(function(dataPost){
+
+		var textToDisplay;
+		//console.log(dataPost);
+		for (var i = 0; i < amountOfPostsToDisplay; i++) {
+			$('strong').eq(i).text(dataPost[i].title);
+
+			if(dataPost[i].body.length > charsPerPostToDisplay) {
+				textToDisplay = dataPost[i].body.substr(0, charsPerPostToDisplay)+"...";
+			}
+
+			//console.log(textToDisplay.length);
+
+			$('.postText').eq(i).text(textToDisplay);
+			//console.log($('p').eq(i).text().length);
+			addEvents();
+		}
+
+
+		function addEvents(){
+
+			$('.more').on('click', function(e){
+				e.preventDefault();
+				console.log($(this));
+				$(this).children().text("Read Less");
+				$(this).removeClass("more");
+				$(this).addClass("less");
+
+				var currentId = this.id.substr(-1);
+				var ajaxId = parseInt(currentId) + 1;
+				//console.log(ajaxId);
+				//console.log(this.id.substr(-1));
+
+				var requestMore = $.ajax({
+					url:"https://jsonplaceholder.typicode.com/posts",
+					method:"GET",
+					data: {id:ajaxId}
+				});
+
+				requestMore.done(function(dataMore){
+					//console.log(dataComplete);
+					$('.postText').eq(currentId).text(dataMore[0].body);
+					//addEvents();
+					//console.log(this);
+				});
+				
+
+			});
+
+			$('.less').on('click', function(e){
+				e.preventDefault();
+				console.log($(this));
+				$(this).children().text("Read More");
+				$(this).removeClass("less");
+				$(this).addClass("more");
+
+				var currentId = this.id.substr(-1);
+				var ajaxId = parseInt(currentId) + 1;
+				//console.log(ajaxId);
+				//console.log(this.id.substr(-1));
+
+				var requestLess = $.ajax({
+					url:"https://jsonplaceholder.typicode.com/posts",
+					method:"GET",
+					data: {id:ajaxId}
+				});
+
+				requestLess.done(function(dataLess){
+					//console.log(dataComplete);
+					textToDisplay = dataLess[0].body.substr(0, charsPerPostToDisplay)+"..."
+					$('.postText').eq(currentId).text(textToDisplay);
+					//addEvents();
+					//console.log(this);
+				});
+
+			});
+				
+		}
+		
+
 	});
 });
