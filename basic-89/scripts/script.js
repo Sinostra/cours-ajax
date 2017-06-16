@@ -149,4 +149,47 @@ $(function () {
 		
 
 	});
+
+
+	var step = 10;
+
+	//console.log('#imageId'+1);
+
+	//Affichage des 3 premières images
+	for (let j = 1; j <= 3; j++) {
+
+		$.ajax({
+			url: "https://jsonplaceholder.typicode.com/photos",
+			method: "GET",
+			data: {id:j}
+		})
+
+		.done(function(data){
+			$('#imageId'+j).attr('src', data[0].url);
+		})
+
+		.fail(function(jqXHR, textStatus){
+			console.log(textStatus);
+		});
+		
+	}
+
+	/*$('#all').on('click', function(e){
+		e.preventDefault();
+		var lastUsedId;
+		var differentIds = [];
+		//console.log($('li img'));
+
+		for (var images = 0; images < $('li img').length; images++) {
+			console.log(parseInt($('li img').eq(images).attr('id').substr(-1)));
+			differentIds.push(parseInt($('li img').eq(images).attr('id').substr(-1)));
+		}
+
+		console.log(differentIds);
+
+		for (let k = 1; k <= step; k++) {
+			
+		}
+	});*/
+
 });

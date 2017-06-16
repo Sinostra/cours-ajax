@@ -69,11 +69,12 @@
         <article>
           <figure>
             <ul class="clear">
-              <li class="one_third"><img src="images/demo/290x180.gif" width="290" height="180" alt=""></li>
-              <li class="one_third"><img src="images/demo/290x180.gif" width="290" height="180" alt=""></li>
-              <li class="one_third lastbox"><img src="images/demo/290x180.gif" width="290" height="180" alt=""></li>
+              <li class="one_third"><img src="images/demo/290x180.gif" id="imageId1" width="290" height="180" alt=""></li>
+              <li class="one_third"><img src="images/demo/290x180.gif" id="imageId2" width="290" height="180" alt=""></li>
+              <li class="one_third lastbox"><img src="images/demo/290x180.gif" id="imageId3" width="290" height="180" alt=""></li>
             </ul>
-            <figcaption><a href="#">View All Our Recent Work Here &raquo;</a></figcaption>
+            <!-- Ajouter une nouvelle liste ul ici, 3 photos par liste -->
+            <figcaption id="all"><a href="#">View All Our Recent Work Here &raquo;</a></figcaption>
           </figure>
         </article>
       </section>
@@ -82,11 +83,11 @@
     <!-- main content -->
     <div id="content">
       <section id="posts" class="last clear">
-        <form method="post" action="">
+        <form method="post" action="inscription.php">
           <input type="text" name="nom" placeholder="Nom">
           <input type="text" name="prenom" placeholder="Prénom">
           <input type="date" name="dateNaissance" placeholder="Date de naissance">
-          <select>
+          <select name="poste">
             <option value="cio">CIO</option>
             <option value="ceo">CEO</option>
             <option value="sio">SIO</option>
