@@ -32,20 +32,20 @@ $(function () {
 	}, changeFrequency);*/
 
 	var request = $.ajax({
-		url:"https://jsonplaceholder.typicode.com/users",
+		url: $('form').attr('action'),
 		method:"GET",
 		dataType:"json"
 	});
 
 	request.done(function(data) {
 		for (var i = data.length - 1; i >= 0; i--) {
-			$('#names').append("<li id='"+data[i].id+"'>" + data[i].name + "</li>");
+			$('#names').append("<li id='"+data[i].id+"'>" + data[i].fistname + " " + data[i].lastname + "</li>");
 		}
 
 		$('#names li').on('click', function(){
 			//console.log(this.id);
 			var infosRequest = $.ajax({
-				url:"https://jsonplaceholder.typicode.com/users",
+				url: $('form').attr('action'),
 				method:"GET",
 				data: {id: this.id},
 				dataType:"json"
@@ -53,8 +53,24 @@ $(function () {
 
 			infosRequest.done(function(dataInfos){
 				//console.log(data[0].username);
-				console.info("Username : " + dataInfos[0].username);
-				console.info("Email : " + dataInfos[0].email);
+				//console.info("First name : " + dataInfos[0].fistname);
+				//console.info("Last name : " + dataInfos[0].lastname);
+
+				$("#id").val(dataInfos[0].id);
+				$("#form-name").val(dataInfos[0].lastname);
+				$("#form-firstname").val(dataInfos[0].fistname);
+				$("#form-birthdate").val(dataInfos[0].date_naiss);
+				//console.log($("#form-poste").val());
+				console.log(dataInfos);
+
+				var select = [];
+				select["cio"] = 0;
+				select["ceo"] = 1;
+				select["sio"] = 2;
+
+				$("#form-poste option:eq("+select[dataInfos[0].poste]+")").attr("selected", "selected");
+				//$("#form-poste").val(dataInfos[0].poste);
+				//console.log(dataInfos);
 			});
 		});
 
@@ -217,6 +233,21 @@ $(function () {
 		.fail(function(jqXHR, textStatus){
 			$('#message_ajax').html('<strong>Fail</strong>');
 			console.log("fail");
+		});
+	});
+
+	$('#deleteButton').on('click', function(e){
+		e.preventDefault();
+		console.log("hi");
+
+		$.ajax({
+			url: $('form').attr('action'),
+			method : $('form').attr('method'),
+			data : {id : $('#id').val()}
+		})
+
+		.done(function(data){
+			console.log("delete");
 		});
 	});
 

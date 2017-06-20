@@ -85,6 +85,7 @@
       <section id="posts" class="last clear">
         <div id="message_ajax"></div>
         <form method="post" action="inscription.php">
+          <input type="hidden" name="id" id="id">
           <input type="text" name="nom" placeholder="Nom" id="form-name">
           <input type="text" name="prenom" placeholder="Prénom" id="form-firstname">
           <input type="date" name="dateNaissance" placeholder="Date de naissance" id="form-birthdate">
@@ -94,6 +95,8 @@
             <option value="sio">SIO</option>
           </select>
           <input type="submit" value="Envoyer">
+
+          <button id="deleteButton">Delete</button>
         </form>
         <!-- <ul>
           <li>
