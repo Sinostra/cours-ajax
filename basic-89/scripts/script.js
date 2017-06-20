@@ -192,4 +192,32 @@ $(function () {
 		}
 	});*/
 
+	$('form').on('submit', function(e){
+		e.preventDefault();
+		//console.log($('form').attr('method'));
+		//console.log($('#form-name').val());
+
+		$.ajax({
+			url : $('form').attr('action'),
+			method : $('form').attr('method'),
+			data : $('form').serialize()
+			/*data : {
+				'prenom' : $('#form-firstname').val(),
+				'nom' : $('#form-name').val(),
+				'dateNaissance' : $('#form-birthdate').val(),
+				'poste' : $('#form-poste').val()
+			}*/
+		})
+
+		.done(function(data){
+			$('#message_ajax').html('<strong>Success</strong>');
+			console.log("done");
+		})
+
+		.fail(function(jqXHR, textStatus){
+			$('#message_ajax').html('<strong>Fail</strong>');
+			console.log("fail");
+		});
+	});
+
 });
